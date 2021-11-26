@@ -5,21 +5,21 @@ DATA_URL_RE = re.compile(
     "data:(?P<MIME>[\w-]+\/[\w-]+(;[\w-]+\=[\w-]+)?)(?P<encoded>;base64)?,(?P<data>[\w\d.~%\=\/\+]+)"
 )
 
-def construct_data_url(mime_type, is_base64_encoded, data):
+def construct_data_url(mime_type, base64_encode, data, data_encoded=False):
     """
     Helper method for just creating a data URL from some data. If this
     URL will persist it is recommended to create a full DataURL object
 
     Args:
         mime_type (str)
-        is_base64_encoded (boolean): Whether or not the URL data should be base64 encoded.
+        base64_encode (boolean): Whether or not the URL data should be base64 encoded.
         data (str | bytes): The actual url data.
         data_encoded (boolean): Whether the data has already been encoded.
 
     Returns:
         str: The data URL.
     """
-    data_url = DataURL.from_data(mime_type, is_base64_encoded, data)
+    data_url = DataURL.from_data(mime_type, base64_encode, data, data_encoded)
     return data_url.url
 
 class DataURL:
@@ -43,12 +43,12 @@ class DataURL:
         return data_url
 
     @classmethod
-    def from_data(cls, mime_type, is_base64_encoded, data, data_encoded=False):
+    def from_data(cls, mime_type, base64_encode, data, data_encoded=False):
         """Create a new data URL from a mime type and data
 
         Args:
             mime_type (str)
-            is_base64_encoded (boolean): Whether or not the URL data should be base64 encoded.
+            base64_encode (boolean): Whether or not the URL data should be base64 encoded.
             data (str | bytes): The actual url data.
             data_encoded (boolean): Whether the data has already been encoded.
         Returns:
@@ -56,7 +56,7 @@ class DataURL:
         """
         data_url = cls()
         data_url._mime_type = mime_type
-        data_url._is_base64_encoded = is_base64_encoded
+        data_url._is_base64_encoded = base64_encode
         if data_encoded:
             data_url._data = base64.b64decode(data)
         else:
