@@ -1,6 +1,6 @@
 # data_url.py
 
-data_url is a Python 3 library which provides easy methods for creating and working with [data URL's](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+data_url is a Python 3 library which provides easy methods for creating and working with [data URL's](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs). The full API documentation is available [here](https://data-url.readthedocs.io/en/latest/).
 
 ## Examples
 
