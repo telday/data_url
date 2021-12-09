@@ -58,9 +58,9 @@ class DataURL:
         data_url._mime_type = mime_type
         data_url._is_base64_encoded = base64_encode
         if data_encoded:
-            data_url._data = base64.b64decode(data)
-        else:
             data_url._data = data
+        else:
+            data_url._data = base64.b64decode(data)
         return data_url
 
     def __parse_url(self):
