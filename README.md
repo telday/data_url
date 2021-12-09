@@ -14,7 +14,7 @@ import data_url
 with open('image.jpeg', 'rb') as image:
   data = image.read()
 
-url = data_url.construct_data_url(mime_type='image/jpeg', base64_encode=True, data=data, data_encoded=False)
+url = data_url.construct_data_url(mime_type='image/jpeg', base64_encode=True, data=data)
 ```
 
 If you need the information to persist it is recommended to instantiate a class through one of the factory methods on `DataURL`

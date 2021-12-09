@@ -10,16 +10,19 @@ def construct_data_url(mime_type, base64_encode, data, data_encoded=False):
     Helper method for just creating a data URL from some data. If this
     URL will persist it is recommended to create a full DataURL object
 
+    If the data is a string type and the base64_encode flag is set to True then
+    this function assumes the data is already base64 encoded and decodes it. Otherwise
+    the data is passed through as is.
+
     Args:
         mime_type (str)
         base64_encode (boolean): Whether or not the URL data should be base64 encoded.
         data (str | bytes): The actual url data.
-        data_encoded (boolean): Whether the data has already been encoded.
 
     Returns:
         str: The data URL.
     """
-    data_url = DataURL.from_data(mime_type, base64_encode, data, data_encoded)
+    data_url = DataURL.from_data(mime_type, base64_encode, data)
     return data_url.url
 
 class DataURL:
@@ -43,24 +46,29 @@ class DataURL:
         return data_url
 
     @classmethod
-    def from_data(cls, mime_type, base64_encode, data, data_encoded=False):
+    def from_data(cls, mime_type, base64_encode, data):
         """Create a new data URL from a mime type and data
+
+        If the data is a string type and the base64_encode flag is set to True then
+        this function assumes the data is already base64 encoded and decodes it. Otherwise
+        the data is passed through as is.
 
         Args:
             mime_type (str)
             base64_encode (boolean): Whether or not the URL data should be base64 encoded.
             data (str | bytes): The actual url data.
-            data_encoded (boolean): Whether the data has already been encoded.
         Returns:
             DataURL: A new DataURL object.
         """
         data_url = cls()
         data_url._mime_type = mime_type
         data_url._is_base64_encoded = base64_encode
-        if data_encoded:
+        if type(data) == str and base64_encode:
+            data_url._data = base64.b64decode(data)
+        elif type(data) in [bytes, str]:
             data_url._data = data
         else:
-            data_url._data = base64.b64decode(data)
+            raise TypeError('data must be either a string or bytes object')
         return data_url
 
     def __parse_url(self):
@@ -110,5 +118,5 @@ class DataURL:
     def encoded_data(self):
         """The encoded data of the URL"""
         if self._is_base64_encoded:
-            return base64.b64encode(self._data)
+            return base64.b64encode(self._data).decode('utf-8')
         return self._data
