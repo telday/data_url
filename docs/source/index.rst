@@ -30,7 +30,6 @@ If all you need is to create a URL and nothing else there is a shortcut method i
       mime_type='image/jpeg',
       base64_encode=True,
       data=data,
-      data_encoded=False
    )
 
 If you need the information to persist it is recommended to instantiate a class through one of the factory methods on `DataURL`

@@ -89,7 +89,6 @@
    <span class="n">mime_type</span><span class="o">=</span><span class="s1">&#39;image/jpeg&#39;</span><span class="p">,</span>
    <span class="n">base64_encode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-   <span class="n">data_encoded</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -148,15 +147,17 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="data_url.DataURL.from_data">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base64_encode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_encoded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.DataURL.from_data" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base64_encode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.DataURL.from_data" title="Permalink to this definition"></a></dt>
 <dd><p>Create a new data URL from a mime type and data</p>
+<p>If the data is a string type and the base64_encode flag is set to True then
+this function assumes the data is already base64 encoded and decodes it. Otherwise
+the data is passed through as is.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mime_type</strong> (<em>str</em>) – </p></li>
 <li><p><strong>base64_encode</strong> (<em>boolean</em>) – Whether or not the URL data should be base64 encoded.</p></li>
 <li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) – The actual url data.</p></li>
-<li><p><strong>data_encoded</strong> (<em>boolean</em>) – Whether the data has already been encoded.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -206,16 +207,18 @@ data from a data URL.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="data_url.construct_data_url">
-<span class="sig-prename descclassname"><span class="pre">data_url.</span></span><span class="sig-name descname"><span class="pre">construct_data_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base64_encode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_encoded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.construct_data_url" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">data_url.</span></span><span class="sig-name descname"><span class="pre">construct_data_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base64_encode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.construct_data_url" title="Permalink to this definition"></a></dt>
 <dd><p>Helper method for just creating a data URL from some data. If this
 URL will persist it is recommended to create a full DataURL object</p>
+<p>If the data is a string type and the base64_encode flag is set to True then
+this function assumes the data is already base64 encoded and decodes it. Otherwise
+the data is passed through as is.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mime_type</strong> (<em>str</em>) – </p></li>
 <li><p><strong>base64_encode</strong> (<em>boolean</em>) – Whether or not the URL data should be base64 encoded.</p></li>
 <li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) – The actual url data.</p></li>
-<li><p><strong>data_encoded</strong> (<em>boolean</em>) – Whether the data has already been encoded.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

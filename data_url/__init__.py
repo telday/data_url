@@ -5,7 +5,7 @@ DATA_URL_RE = re.compile(
     "data:(?P<MIME>[\w-]+\/[\w-]+(;[\w-]+\=[\w-]+)?)(?P<encoded>;base64)?,(?P<data>[\w\d.~%\=\/\+]+)"
 )
 
-def construct_data_url(mime_type, base64_encode, data, data_encoded=False):
+def construct_data_url(mime_type, base64_encode, data):
     """
     Helper method for just creating a data URL from some data. If this
     URL will persist it is recommended to create a full DataURL object
