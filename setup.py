@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setup(
     name="data_url",
-    version="1.0.3",
+    version="1.0.5",
     author="Ellis Wright",
     author_email="ejw393@duck.com",
     description="",

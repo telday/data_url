@@ -2,7 +2,7 @@ import re
 import base64
 
 DATA_URL_RE = re.compile(
-    "data:(?P<MIME>[\w-]+\/[\w-]+(;[\w-]+\=[\w-]+)?)(?P<encoded>;base64)?,(?P<data>[\w\d.~%\=\/\+]+)"
+    "data:(?P<MIME>[\w-]+\/[\w+-]+(;[\w-]+\=[\w-]+)?)(?P<encoded>;base64)?,(?P<data>[\w\d.~%\=\/\+]+)"
 )
 
 def construct_data_url(mime_type, base64_encode, data):
