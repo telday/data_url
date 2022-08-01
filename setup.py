@@ -3,9 +3,12 @@ from setuptools import setup, find_packages
 with open('README.md', 'r') as f:
     long_description = f.read()
 
+with open('VERSION', 'r') as f:
+    version = f.read().strip()
+
 setup(
     name="data_url",
-    version="1.0.5",
+    version=version,
     author="Ellis Wright",
     author_email="ejw393@duck.com",
     description="",
