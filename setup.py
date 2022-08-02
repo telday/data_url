@@ -11,7 +11,7 @@ setup(
     version=version,
     author="Ellis Wright",
     author_email="ejw393@duck.com",
-    description="",
+    description="Easy Data URL management for python",
     long_description=long_description,
     long_description_content_type='text/markdown',
     url="https://github.com/telday/data_url",
