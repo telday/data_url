@@ -10,7 +10,7 @@ setup(
     name="data_url",
     version=version,
     author="Ellis Wright",
-    author_email="ejw393@duck.com",
+    author_email="ejw@duck.com",
     description="Easy Data URL management for python",
     long_description=long_description,
     long_description_content_type='text/markdown',
