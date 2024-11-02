@@ -28,7 +28,7 @@ If all you need is to create a URL and nothing else there is a shortcut method i
 
    url = data_url.construct_data_url(
       mime_type='image/jpeg',
-      base64_encode=True,
+      base64_encoded=True,
       data=data,
    )
 

@@ -1,20 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>data_url Documentation &mdash; data_url  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -25,11 +26,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> data_url
+
+          
+          
+          <a href="#" class="icon icon-home">
+            data_url
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,7 +48,23 @@
 <li><a class="reference internal" href="#retrieving-data-from-a-url">Retrieving data from a URL</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-data_url">API Documentation</a></li>
+<li><a class="reference internal" href="#module-data_url">API Documentation</a><ul>
+<li><a class="reference internal" href="#data_url.DataURL"><code class="docutils literal notranslate"><span class="pre">DataURL</span></code></a><ul>
+<li><a class="reference internal" href="#data_url.DataURL.ENCODING_STRING"><code class="docutils literal notranslate"><span class="pre">DataURL.ENCODING_STRING</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.URL_FORMAT"><code class="docutils literal notranslate"><span class="pre">DataURL.URL_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.data"><code class="docutils literal notranslate"><span class="pre">DataURL.data</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.encoded_data"><code class="docutils literal notranslate"><span class="pre">DataURL.encoded_data</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.from_byte_data"><code class="docutils literal notranslate"><span class="pre">DataURL.from_byte_data()</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.from_data"><code class="docutils literal notranslate"><span class="pre">DataURL.from_data()</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.from_url"><code class="docutils literal notranslate"><span class="pre">DataURL.from_url()</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.is_base64_encoded"><code class="docutils literal notranslate"><span class="pre">DataURL.is_base64_encoded</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.mime_type"><code class="docutils literal notranslate"><span class="pre">DataURL.mime_type</span></code></a></li>
+<li><a class="reference internal" href="#data_url.DataURL.url"><code class="docutils literal notranslate"><span class="pre">DataURL.url</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#data_url.construct_data_url"><code class="docutils literal notranslate"><span class="pre">construct_data_url()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
         </div>
@@ -59,8 +80,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>data_url Documentation</li>
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">data_url Documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -71,14 +92,14 @@
            <div itemprop="articleBody">
              
   <section id="data-url-documentation">
-<h1>data_url Documentation<a class="headerlink" href="#data-url-documentation" title="Permalink to this headline"></a></h1>
+<h1>data_url Documentation<a class="headerlink" href="#data-url-documentation" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 </div>
 </section>
 <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h1>
+<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h1>
 <section id="creating-a-data-url">
-<h2>Creating a data URL<a class="headerlink" href="#creating-a-data-url" title="Permalink to this headline"></a></h2>
+<h2>Creating a data URL<a class="headerlink" href="#creating-a-data-url" title="Link to this heading"></a></h2>
 <p>If all you need is to create a URL and nothing else there is a shortcut method included so you don’t need to directly instantiate the DataURL class.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">data_url</span>
 
@@ -105,7 +126,7 @@
 <p>You can access the full data URL by either converting the DataURL object to a string as above or by accessing the <cite>url</cite> attribute.</p>
 </section>
 <section id="retrieving-data-from-a-url">
-<h2>Retrieving data from a URL<a class="headerlink" href="#retrieving-data-from-a-url" title="Permalink to this headline"></a></h2>
+<h2>Retrieving data from a URL<a class="headerlink" href="#retrieving-data-from-a-url" title="Link to this heading"></a></h2>
 <p>Given you already have a data URL you can instantiate a DataURL object and retrieve each individual attribute.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">data_url</span>
 
@@ -119,51 +140,76 @@
 </section>
 </section>
 <section id="module-data_url">
-<span id="api-documentation"></span><h1>API Documentation<a class="headerlink" href="#module-data_url" title="Permalink to this headline"></a></h1>
+<span id="api-documentation"></span><h1>API Documentation<a class="headerlink" href="#module-data_url" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="data_url.DataURL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_url.</span></span><span class="sig-name descname"><span class="pre">DataURL</span></span><a class="headerlink" href="#data_url.DataURL" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">data_url.</span></span><span class="sig-name descname"><span class="pre">DataURL</span></span><a class="headerlink" href="#data_url.DataURL" title="Link to this definition"></a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="data_url.DataURL.ENCODING_STRING">
-<span class="sig-name descname"><span class="pre">ENCODING_STRING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">';base64'</span></em><a class="headerlink" href="#data_url.DataURL.ENCODING_STRING" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">ENCODING_STRING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">';base64'</span></em><a class="headerlink" href="#data_url.DataURL.ENCODING_STRING" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="data_url.DataURL.URL_FORMAT">
-<span class="sig-name descname"><span class="pre">URL_FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'data:{mime_type}{encoded},{data}'</span></em><a class="headerlink" href="#data_url.DataURL.URL_FORMAT" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">URL_FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'data:{mime_type}{encoded},{data}'</span></em><a class="headerlink" href="#data_url.DataURL.URL_FORMAT" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="data_url.DataURL.data">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#data_url.DataURL.data" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#data_url.DataURL.data" title="Link to this definition"></a></dt>
 <dd><p>The raw data of the URL</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="data_url.DataURL.encoded_data">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">encoded_data</span></span><a class="headerlink" href="#data_url.DataURL.encoded_data" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">encoded_data</span></span><a class="headerlink" href="#data_url.DataURL.encoded_data" title="Link to this definition"></a></dt>
 <dd><p>The encoded data of the URL</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="data_url.DataURL.from_byte_data">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_byte_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.DataURL.from_byte_data" title="Link to this definition"></a></dt>
+<dd><p>Create a new data URL from a mime type and byte data.</p>
+<p>This method works similarly to from_data, however because the data is bytes type it will
+automatically turn on base64 encoding. It also assumes that the data is not already
+base64 encoded. If you have base64 encoded bytes convert them to a string then
+use the <cite>from_data</cite> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mime_type</strong> (<em>str</em>)</p></li>
+<li><p><strong>data</strong> (<em>bytes</em>) – The actual url data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new DataURL object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#data_url.DataURL" title="data_url.DataURL">DataURL</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="data_url.DataURL.from_data">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base64_encode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.DataURL.from_data" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base64_encoded</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.DataURL.from_data" title="Link to this definition"></a></dt>
 <dd><p>Create a new data URL from a mime type and data</p>
-<p>If the data is a string type and the base64_encode flag is set to True then
+<p>If the data is a string type and the base64_encoded flag is set to True then
 this function assumes the data is already base64 encoded and decodes it. Otherwise
 the data is passed through as is.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mime_type</strong> (<em>str</em>) – </p></li>
-<li><p><strong>base64_encode</strong> (<em>boolean</em>) – Whether or not the URL data should be base64 encoded.</p></li>
-<li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) – The actual url data.</p></li>
+<li><p><strong>mime_type</strong> (<em>str</em>)</p></li>
+<li><p><strong>base64_encoded</strong> (<em>boolean</em>) – Whether or not the URL data should be base64 encoded. If True the data
+passed to this method is also assumed to be base64 encoded.</p></li>
+<li><p><strong>data</strong> (<em>str</em>) – The actual url data.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A new DataURL object.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#data_url.DataURL" title="data_url.DataURL">DataURL</a></p>
 </dd>
 </dl>
@@ -171,17 +217,17 @@ the data is passed through as is.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="data_url.DataURL.from_url">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.DataURL.from_url" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.DataURL.from_url" title="Link to this definition"></a></dt>
 <dd><p>Create a new DataURL object from an existing URL. Useful for retrieving
 data from a data URL.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>)</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A new DataURL object.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#data_url.DataURL" title="data_url.DataURL">DataURL</a></p>
 </dd>
 </dl>
@@ -189,42 +235,44 @@ data from a data URL.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="data_url.DataURL.is_base64_encoded">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_base64_encoded</span></span><a class="headerlink" href="#data_url.DataURL.is_base64_encoded" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_base64_encoded</span></span><a class="headerlink" href="#data_url.DataURL.is_base64_encoded" title="Link to this definition"></a></dt>
 <dd><p>Whether or not the data URL data is base64 encoded</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="data_url.DataURL.mime_type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mime_type</span></span><a class="headerlink" href="#data_url.DataURL.mime_type" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mime_type</span></span><a class="headerlink" href="#data_url.DataURL.mime_type" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="data_url.DataURL.url">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url</span></span><a class="headerlink" href="#data_url.DataURL.url" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">url</span></span><a class="headerlink" href="#data_url.DataURL.url" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="data_url.construct_data_url">
-<span class="sig-prename descclassname"><span class="pre">data_url.</span></span><span class="sig-name descname"><span class="pre">construct_data_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base64_encode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.construct_data_url" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">data_url.</span></span><span class="sig-name descname"><span class="pre">construct_data_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mime_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base64_encoded</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#data_url.construct_data_url" title="Link to this definition"></a></dt>
 <dd><p>Helper method for just creating a data URL from some data. If this
 URL will persist it is recommended to create a full DataURL object</p>
 <p>If the data is a string type and the base64_encode flag is set to True then
 this function assumes the data is already base64 encoded and decodes it. Otherwise
 the data is passed through as is.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mime_type</strong> (<em>str</em>) – </p></li>
-<li><p><strong>base64_encode</strong> (<em>boolean</em>) – Whether or not the URL data should be base64 encoded.</p></li>
+<li><p><strong>mime_type</strong> (<em>str</em>)</p></li>
+<li><p><strong>base64_encoded</strong> (<em>boolean</em>) – Whether or not the URL data should be base64 encoded. If True the data
+passed to this method is also assumed to be base64 encoded. This parameter is ignored when
+data is bytes type and data is assumed to not be encoded.</p></li>
 <li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) – The actual url data.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The data URL.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
