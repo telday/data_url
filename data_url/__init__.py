@@ -25,7 +25,7 @@ def construct_data_url(mime_type, base64_encoded, data):
         str: The data URL.
     """
     if type(data) == str:
-        data_url = DataURL.from_data(mime_type, base64_encode, data)
+        data_url = DataURL.from_data(mime_type, base64_encoded, data)
     else:
         data_url = DataURL.from_byte_data(mime_type, data)
     return data_url.url

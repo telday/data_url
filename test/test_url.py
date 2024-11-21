@@ -6,7 +6,7 @@ from data_url import *
 
 class TestUrlCreation(unittest.TestCase):
     # TODO tests with characters that need percent encoding
-    def test_construct_data_url(self):
+    def test_construct_data_url_string(self):
         mime_type = "text/plain"
         base64_encoded = False
         data = str(uuid.uuid4()).strip()

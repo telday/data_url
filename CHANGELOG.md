@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2024-11-20
+
+### Fixed
+
+- Fixed bug with using `construct_data_url` with string type parameters
+
 ## [1.1.0] - 2024-11-02
 
 ### Changed
