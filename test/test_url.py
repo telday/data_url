@@ -18,6 +18,19 @@ class TestUrlCreation(unittest.TestCase):
         self.assertEqual(base64_encoded, deconstructed_url.is_base64_encoded)
         self.assertEqual(data, deconstructed_url.data)
 
+    def test_construct_data_url_without_mime_type(self):
+        mime_type = ""
+        base64_encoded = False
+        data = str(uuid.uuid4()).strip()
+        url = construct_data_url(mime_type, base64_encoded, data)
+
+        deconstructed_url = DataURL.from_url(url)
+
+        self.assertEqual(mime_type, deconstructed_url.mime_type)
+        self.assertEqual(base64_encoded, deconstructed_url.is_base64_encoded)
+        self.assertEqual(data, deconstructed_url.data)
+        self.assertEqual(url, f"data:,{data}")
+
     def test_construct_data_url(self):
         mime_type = "text/plain"
         base64_encoded = False
@@ -62,6 +75,16 @@ class TestFromData(unittest.TestCase):
 
         self.url = DataURL.from_data(self.mime_type, self.base64_encoded, self.data)
         self.assertEqual(type(self.url.data), bytes)
+        self.run_assertions()
+
+    def test_string_with_empty_mimetype(self):
+        self.mime_type = ""
+        self.base64_encoded = False
+        self.data = str(uuid.uuid4())
+        self.raw_data = self.data
+        self.expected_url = f"data:,{self.data}"
+        self.url = DataURL.from_data(self.mime_type, self.base64_encoded, self.data)
+        self.assertEqual(type(self.url.data), str)
         self.run_assertions()
 
     def run_assertions(self):
