@@ -16,10 +16,12 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.5" # Build with the minimum python version for this project
+          python-version: ">=3.5"
 
       - name: Build release distributions
-        run: python setup.py build sdist
+        run: |
+          python -m pip install 'setuptools>=42' 'wheel'
+          python setup.py build sdist
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4
