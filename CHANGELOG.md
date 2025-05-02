@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2024-11-20
+
+### Fixed
+
+- Fixed missing RFC specification allowing blank mime type
+
 ## [1.1.1] - 2024-11-20
 
 ### Fixed
