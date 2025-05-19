@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2025-05-19
+
+### Fixed
+
+- Allow for "." character to be used in [mime-types](https://github.com/telday/data_url/issues/8).
+
 ## [1.2.0] - 2024-11-20
 
 ### Fixed
