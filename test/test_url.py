@@ -31,6 +31,19 @@ class TestUrlCreation(unittest.TestCase):
         self.assertEqual(data, deconstructed_url.data)
         self.assertEqual(url, f"data:,{data}")
 
+    def test_construct_data_url_with_dot_mime_type(self):
+        mime_type = "image/some.png"
+        base64_encoded = False
+        data = str(uuid.uuid4()).strip()
+        url = construct_data_url(mime_type, base64_encoded, data)
+
+        deconstructed_url = DataURL.from_url(url)
+
+        self.assertEqual(mime_type, deconstructed_url.mime_type)
+        self.assertEqual(base64_encoded, deconstructed_url.is_base64_encoded)
+        self.assertEqual(data, deconstructed_url.data)
+        self.assertEqual(url, f"data:image/some.png,{data}")
+
     def test_construct_data_url(self):
         mime_type = "text/plain"
         base64_encoded = False
@@ -82,8 +95,42 @@ class TestFromData(unittest.TestCase):
         self.base64_encoded = False
         self.data = str(uuid.uuid4())
         self.raw_data = self.data
-        self.expected_url = f"data:,{self.data}"
+        self.expected_url = f"data:{self.mime_type},{self.data}"
         self.url = DataURL.from_data(self.mime_type, self.base64_encoded, self.data)
+
+        self.assertEqual(type(self.url.data), str)
+        self.run_assertions()
+
+    def test_string_with_dot_mimetype(self):
+        self.mime_type = "image/some.png"
+        self.base64_encoded = False
+        self.data = str(uuid.uuid4())
+        self.raw_data = self.data
+        self.expected_url = f"data:{self.mime_type},{self.data}"
+        self.url = DataURL.from_data(self.mime_type, self.base64_encoded, self.data)
+
+        self.assertEqual(type(self.url.data), str)
+        self.run_assertions()
+
+    def test_string_with_plus_and_dot_mimetype(self):
+        self.mime_type = "image/some.png+other"
+        self.base64_encoded = True
+        self.raw_data = bytes(str(uuid.uuid4()), "UTF-8")
+        self.data = base64.b64encode(self.raw_data).decode("UTF-8")
+        self.expected_url = f"data:{self.mime_type};base64,{self.data}"
+        self.url = DataURL.from_data(self.mime_type, self.base64_encoded, self.data)
+
+        self.assertEqual(type(self.url.data), bytes)
+        self.run_assertions()
+
+    def test_string_with_plus_mimetype(self):
+        self.mime_type = "image/some+other"
+        self.base64_encoded = False
+        self.data = str(uuid.uuid4())
+        self.raw_data = self.data
+        self.expected_url = f"data:{self.mime_type},{self.data}"
+        self.url = DataURL.from_data(self.mime_type, self.base64_encoded, self.data)
+
         self.assertEqual(type(self.url.data), str)
         self.run_assertions()
 
