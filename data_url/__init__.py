@@ -1,5 +1,6 @@
 import re
 import base64
+from urllib.parse import unquote, quote
 
 DATA_URL_RE = re.compile(
     r"""
@@ -39,7 +40,7 @@ def construct_data_url(mime_type, base64_encoded, data):
     return data_url.url
 
 class DataURL:
-    URL_FORMAT = "data:{mime_type}{encoded},{data}"
+    URL_FORMAT = "data:{mime_type}{parameters}{encoded},{data}"
     ENCODING_STRING = ";base64"
 
     @classmethod
@@ -119,6 +120,14 @@ class DataURL:
         if match:
             self._is_base64_encoded = match.group('encoded') is not None
             self._mime_type = match.group("MIME") or ""
+            params = match.group("parameters")
+            if params:
+                self._parameters = {}
+                for pair in params.split(";"):
+                    if pair:
+                        name, value = pair.split("=", 1)
+                        self._parameters[name] = unquote(value)
+
             raw_data = match.group('data')
             if self._is_base64_encoded:
                 self._data = base64.b64decode(raw_data)
@@ -130,8 +139,9 @@ class DataURL:
     def __construct_url(self):
         """Constructs an actual data URL string from class attributes."""
         return self.URL_FORMAT.format(
-            mime_type=self._mime_type,
-            encoded=self.ENCODING_STRING if self._is_base64_encoded else "",
+            mime_type=self.mime_type,
+            parameters=";" + ";".join([f"{name}={quote(value)}" for name, value in self.parameters.items()]) if self.parameters else "",
+            encoded=self.ENCODING_STRING if self.is_base64_encoded else "",
             data=self.encoded_data
         )
 
@@ -164,3 +174,10 @@ class DataURL:
         if self._is_base64_encoded:
             return base64.b64encode(self._data).decode('utf-8')
         return self._data
+
+    @property
+    def parameters(self):
+        """Attribute / Value parameters."""
+        if not hasattr(self, '_parameters'):
+            self._parameters = {}
+        return self._parameters
