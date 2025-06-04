@@ -5,6 +5,9 @@ import base64
 from data_url import *
 
 class TestUrlCreation(unittest.TestCase):
+    example_url = "data:image/png;hello=world;name=two%20words;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+    example_data = "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+
     # TODO tests with characters that need percent encoding
     def test_construct_data_url_string(self):
         mime_type = "text/plain"
@@ -63,6 +66,19 @@ class TestUrlCreation(unittest.TestCase):
     def test_non_compliant_url(self):
         url = DataURL.from_url("not a url")
         assert url is None
+
+    def test_url_with_parameters(self):
+        url = DataURL.from_url(self.example_url)
+        self.assertEqual(url.mime_type, "image/png")
+        self.assertEqual(url.is_base64_encoded, True)
+        self.assertDictEqual(url.parameters, {"hello": "world", "name": "two words"})
+
+    def test_url_assembly_with_parameters(self):
+        url = DataURL.from_data("image/png", True, self.example_data)
+        url.parameters["hello"] = "world"
+        url.parameters["name"] = "two words"
+        self.assertEqual(str(url), self.example_url)
+
 
 class TestFromData(unittest.TestCase):
     def test_typing(self):
@@ -172,3 +188,10 @@ class TestFromByteData(unittest.TestCase):
 
         self.assertEqual(self.url.is_base64_encoded, self.base64_encoded)
         self.assertEqual(self.expected_url, self.url.url)
+
+class TestFromUrl(unittest.TestCase):
+    def test_from_urls(self):
+        test_str = "       asdf    data:image/png;charset=USASCII;name=file.png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==     afasdfasd\n\n"
+        url = DataURL.from_url(test_str)
+        self.assertEqual(len(url.parameters), 2)
+        self.assertDictEqual(url.parameters, {"charset": "USASCII", "name": "file.png"})
