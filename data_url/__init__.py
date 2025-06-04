@@ -2,8 +2,16 @@ import re
 import base64
 
 DATA_URL_RE = re.compile(
-    r"data:(?P<MIME>([\w-]+\/[\w+\.-]+(;[\w-]+\=[\w-]+)?)?)(?P<encoded>;base64)?,(?P<data>[\w\d.~%\=\/\+-]+)"
+    r"""
+    data:                                         # literal data:
+    (?P<MIME>[\w\-\.+]+/[\w\-\.+]+)?              # optional media type
+    (?P<parameters>(?:;[\w\-\.+]+=[\w\-\.+%]+)*)  # optional attribute=values, value can be url encoded
+    (?P<encoded>;base64)?,                        # optional base64 flag
+    (?P<data>[\w\d.~%\=\/\+-]+)                   # the data
+    """,
+    re.MULTILINE | re.VERBOSE
 )
+
 
 def construct_data_url(mime_type, base64_encoded, data):
     """
@@ -47,8 +55,9 @@ class DataURL:
         """
         data_url = cls()
         data_url._url = url
-        data_url.__parse_url()
-        return data_url
+        if data_url.__parse_url():
+            return data_url
+        return None
 
     @classmethod
     def from_data(cls, mime_type, base64_encoded, data):
@@ -106,14 +115,17 @@ class DataURL:
     def __parse_url(self):
         """Parses a data URL to get each individual element and sets the
         respecting class attributes."""
-        match = DATA_URL_RE.fullmatch(self._url)
-        self._is_base64_encoded = match.group('encoded') is not None
-        self._mime_type = match.group("MIME")
-        raw_data = match.group('data')
-        if self._is_base64_encoded:
-            self._data = base64.b64decode(raw_data)
-        else:
-            self._data = raw_data
+        match = DATA_URL_RE.search(self._url)
+        if match:
+            self._is_base64_encoded = match.group('encoded') is not None
+            self._mime_type = match.group("MIME") or ""
+            raw_data = match.group('data')
+            if self._is_base64_encoded:
+                self._data = base64.b64decode(raw_data)
+            else:
+                self._data = raw_data
+            return True
+        return False
 
     def __construct_url(self):
         """Constructs an actual data URL string from class attributes."""
