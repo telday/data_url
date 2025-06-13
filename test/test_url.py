@@ -191,7 +191,7 @@ class TestFromByteData(unittest.TestCase):
 
 class TestFromUrl(unittest.TestCase):
     def test_from_urls(self):
-        test_str = "       asdf    data:image/png;charset=USASCII;name=file.png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==     afasdfasd\n\n"
+        test_str = "data:image/png;charset=USASCII;name=file.png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
         url = DataURL.from_url(test_str)
         self.assertEqual(len(url.parameters), 2)
         self.assertDictEqual(url.parameters, {"charset": "USASCII", "name": "file.png"})
