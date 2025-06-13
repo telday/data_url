@@ -4,7 +4,7 @@ import base64
 DATA_URL_RE = re.compile(
     r"""
     data:                                         # literal data:
-    (?P<MIME>[\w\-\.+]+/[\w\-\.+]+)?              # optional media type
+    (?P<MIME>[a-z][a-z0-9\-]+/[a-z][\w\-\.\+]+)?  # optional media type
     (?P<parameters>(?:;[\w\-\.+]+=[\w\-\.+%]+)*)  # optional attribute=values, value can be url encoded
     (?P<encoded>;base64)?,                        # optional base64 flag
     (?P<data>[\w\d.~%\=\/\+-]+)                   # the data
@@ -115,7 +115,7 @@ class DataURL:
     def __parse_url(self):
         """Parses a data URL to get each individual element and sets the
         respecting class attributes."""
-        match = DATA_URL_RE.search(self._url)
+        match = DATA_URL_RE.fullmatch(self._url)
         if match:
             self._is_base64_encoded = match.group('encoded') is not None
             self._mime_type = match.group("MIME") or ""
