@@ -60,6 +60,10 @@ class TestUrlCreation(unittest.TestCase):
         self.assertEqual(raw_data, deconstructed_url.data)
         self.assertEqual(data, deconstructed_url.encoded_data)
 
+    def test_non_compliant_url(self):
+        url = DataURL.from_url("not a url")
+        assert url is None
+
 class TestFromData(unittest.TestCase):
     def test_typing(self):
         with self.assertRaises(Exception) as context:
