@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2025-06-17
+
+### Fixed
+
+- Issue with overly restrictive regex for URL data
+
+### Changed
+
+- `DataURL.from_url` with an invalid/non-Data URL string will now return `None`
+  instead of an [error](https://github.com/telday/data_url/pull/12).
+
+### Added
+
+- Support for Data URL [parameters](https://github.com/telday/data_url/pull/13).
+
 ## [1.2.1] - 2025-05-19
 
 ### Fixed
