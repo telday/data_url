@@ -1,0 +1,165 @@
+test_cases:
+  # Valid test cases (20 passing)
+  
+  - url: "data:text/plain,Hello%20World"
+    valid: true
+    description: "Basic text with URL-encoded space"
+  
+  - url: "data:text/plain,Hello-World_123"
+    valid: true
+    description: "Text with unreserved characters"
+  
+  - url: "data:text/plain,Hello.World"
+    valid: true
+    description: "Text with dot character"
+  
+  - url: "data:text/plain,Hello!World"
+    valid: true
+    description: "Text with exclamation mark"
+  
+  - url: "data:text/plain,Hello~World"
+    valid: true
+    description: "Text with tilde character"
+  
+  - url: "data:text/plain,Hello*World"
+    valid: true
+    description: "Text with asterisk character"
+  
+  - url: "data:text/plain,Hello%27World"
+    valid: true
+    description: "Text with URL-encoded single quote"
+  
+  - url: "data:text/plain,Hello%28World%29"
+    valid: true
+    description: "Text with URL-encoded parentheses"
+  
+  - url: "data:text/plain;base64,SGVsbG8gV29ybGQ="
+    valid: true
+    description: "Base64 encoded text"
+  
+  - url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+    valid: true
+    description: "Base64 encoded PNG image"
+  
+  - url: "data:application/json;charset=utf-8,Hello%20World"
+    valid: true
+    description: "JSON MIME type with charset parameter"
+  
+  - url: "data:text/plain,Hello%7BWorld%7D"
+    valid: true
+    description: "Text with URL-encoded curly braces"
+  
+  - url: "data:text/plain,Hello%5BWorld%5D"
+    valid: true
+    description: "Text with URL-encoded square brackets"
+  
+  - url: "data:text/plain,Hello%3AWorld"
+    valid: true
+    description: "Text with URL-encoded colon"
+  
+  - url: "data:text/plain,Hello%40World"
+    valid: true
+    description: "Text with URL-encoded at symbol"
+  
+  - url: "data:text/plain,Hello%2FWorld"
+    valid: true
+    description: "Text with URL-encoded forward slash"
+  
+  - url: "data:text/plain,Hello%23World"
+    valid: true
+    description: "Text with URL-encoded hash"
+  
+  - url: "data:text/plain,Hello%22World%22"
+    valid: true
+    description: "Text with URL-encoded double quotes"
+  
+  - url: "data:text/plain,"
+    valid: true
+    description: "Empty data section"
+  
+  - url: "data:,Hello%20World"
+    valid: true
+    description: "Missing MIME type"
+  
+  
+  # Invalid test cases (20 failing)
+  
+  - url: "data:text/plain,Hello World"
+    valid: false
+    description: "Unencoded space character"
+  
+  - url: "data:text/plain,Hello{World}"
+    valid: false
+    description: "Unencoded curly braces"
+  
+  - url: "data:text/plain,Hello[World]"
+    valid: false
+    description: "Unencoded square brackets"
+  
+  - url: "data:text/plain,Hello:World"
+    valid: false
+    description: "Unencoded colon"
+  
+  - url: "data:text/plain,Hello@World"
+    valid: false
+    description: "Unencoded at symbol"
+  
+  - url: "data:text/plain,Hello/World"
+    valid: false
+    description: "Unencoded forward slash"
+  
+  - url: "data:text/plain,Hello#World"
+    valid: false
+    description: "Unencoded hash"
+  
+  - url: "data:text/plain,Hello\"World\""
+    valid: false
+    description: "Unencoded double quotes"
+  
+  - url: "data:text/plain,Hello<World>"
+    valid: false
+    description: "Unencoded angle brackets"
+  
+  - url: "data:text/plain,Hello=World"
+    valid: false
+    description: "Unencoded equals sign"
+  
+  - url: "data:TEXT/plain,Hello"
+    valid: false
+    description: "MIME type with uppercase letters"
+  
+  - url: "data:text/PLAIN,Hello"
+    valid: false
+    description: "MIME subtype with uppercase letters"
+  
+  - url: "data:text,Hello"
+    valid: false
+    description: "MIME type without subtype"
+  
+  - url: "data:/plain,Hello"
+    valid: false
+    description: "MIME type starts with slash"
+  
+  - url: "data:text/,Hello"
+    valid: false
+    description: "Empty MIME subtype"
+  
+  - url: "data:text/plain;base64;charset=utf-8,Hello"
+    valid: false
+    description: "Parameters after base64 flag are not allowed"
+  
+  - url: "data:text/plain;base64=true,Hello"
+    valid: false
+    description: "Base64 flag with value is not allowed"
+  
+  - url: "data:text/plain;BASE64,Hello"
+    valid: false
+    description: "Base64 flag with uppercase letters"
+  
+  - url: "data:text/plain"
+    valid: false
+    description: "Missing comma separator and data"
+  
+  - url: "DATA:text/plain,Hello"
+    valid: false
+    description: "Uppercase DATA scheme is not allowed"

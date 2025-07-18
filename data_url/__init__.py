@@ -8,7 +8,7 @@ DATA_URL_RE = re.compile(
     (?P<MIME>[a-z][a-z0-9\-]+/[a-z][\w\-\.\+]+)?  # optional media type
     (?P<parameters>(?:;[\w\-\.+]+=[\w\-\.+%]+)*)  # optional attribute=values, value can be url encoded
     (?P<encoded>;base64)?,                        # optional base64 flag
-    (?P<data>[\w\d.~%\=\/\+-]+)                   # the data
+    (?P<data>.*)                                  # data section - validate separately
     """,
     re.MULTILINE | re.VERBOSE
 )
@@ -126,11 +126,23 @@ class DataURL:
                 for pair in params.split(";"):
                     if pair:
                         name, value = pair.split("=", 1)
+                        # base64 is reserved and can only appear as a flag, not as a parameter
+                        if name == "base64":
+                            return False
                         self._parameters[name] = unquote(value)
 
             raw_data = match.group('data')
+            
+            # Validate the data section contains only allowed characters
+            if not _validate_data_section(raw_data, self._is_base64_encoded):
+                return False
+            
             if self._is_base64_encoded:
-                self._data = base64.b64decode(raw_data)
+                try:
+                    self._data = base64.b64decode(raw_data)
+                except Exception:
+                    # Invalid base64 data
+                    return False
             else:
                 self._data = raw_data
             return True
@@ -181,3 +193,23 @@ class DataURL:
         if not hasattr(self, '_parameters'):
             self._parameters = {}
         return self._parameters
+
+def _validate_data_section(data, is_base64=False):
+    """
+    Validate that the data section contains only allowed characters.
+    
+    Args:
+        data (str): The data section to validate
+        is_base64 (bool): Whether this is base64 encoded data
+    
+    Returns:
+        bool: True if valid, False otherwise
+    """
+    if is_base64:
+        # Base64 alphabet plus padding
+        base64_pattern = re.compile(r'^[A-Za-z0-9+/=]*$')
+        return base64_pattern.match(data) is not None
+    else:
+        # Unreserved characters plus percent-encoded sequences
+        unreserved_pattern = re.compile(r'^(?:[A-Za-z0-9\-_.!~*\'()]|%[0-9A-Fa-f]{2})*$')
+        return unreserved_pattern.match(data) is not None
