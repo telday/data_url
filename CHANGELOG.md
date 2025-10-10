@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2025-08-10
+
+### Added
+
+- Support for type hints.
+
 ## [1.3.0] - 2025-06-17
 
 ### Fixed
 
-- Issue with overly restrictive regex for URL data
+- Issue with overly restrictive regex for URL data.
 
 ### Changed
 

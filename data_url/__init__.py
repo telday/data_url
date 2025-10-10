@@ -1,6 +1,7 @@
 import re
 import base64
 from urllib.parse import unquote, quote
+from typing import Union, Dict, Optional
 
 DATA_URL_RE = re.compile(
     r"""
@@ -14,7 +15,7 @@ DATA_URL_RE = re.compile(
 )
 
 
-def construct_data_url(mime_type, base64_encoded, data):
+def construct_data_url(mime_type: str, base64_encoded: bool, data: Union[str, bytes]) -> str:
     """
     Helper method for just creating a data URL from some data. If this
     URL will persist it is recommended to create a full DataURL object
@@ -44,7 +45,7 @@ class DataURL:
     ENCODING_STRING = ";base64"
 
     @classmethod
-    def from_url(cls, url):
+    def from_url(cls, url: str) -> Optional['DataURL']:
         """
         Create a new DataURL object from an existing URL. Useful for retrieving
         data from a data URL.
@@ -58,10 +59,9 @@ class DataURL:
         data_url._url = url
         if data_url.__parse_url():
             return data_url
-        return None
 
     @classmethod
-    def from_data(cls, mime_type, base64_encoded, data):
+    def from_data(cls, mime_type: str, base64_encoded: bool, data: str) -> 'DataURL':
         """Create a new data URL from a mime type and data
 
         If the data is a string type and the base64_encoded flag is set to True then
@@ -89,7 +89,7 @@ class DataURL:
         return data_url
 
     @classmethod
-    def from_byte_data(cls, mime_type, data):
+    def from_byte_data(cls, mime_type: str, data: bytes) -> 'DataURL':
         """Create a new data URL from a mime type and byte data.
 
         This method works similarly to from_data, however because the data is bytes type it will
@@ -113,7 +113,7 @@ class DataURL:
 
         return data_url
 
-    def __parse_url(self):
+    def __parse_url(self) -> bool:
         """Parses a data URL to get each individual element and sets the
         respecting class attributes."""
         match = DATA_URL_RE.fullmatch(self._url)
@@ -136,7 +136,7 @@ class DataURL:
             return True
         return False
 
-    def __construct_url(self):
+    def __construct_url(self) -> str:
         """Constructs an actual data URL string from class attributes."""
         return self.URL_FORMAT.format(
             mime_type=self.mime_type,
@@ -145,38 +145,38 @@ class DataURL:
             data=self.encoded_data
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.url
 
     @property
-    def url(self):
+    def url(self) -> str:
         if not hasattr(self, '_url'):
             self._url = self.__construct_url()
         return self._url
 
     @property
-    def is_base64_encoded(self):
+    def is_base64_encoded(self) -> bool:
         """Whether or not the data URL data is base64 encoded"""
         return self._is_base64_encoded
 
     @property
-    def mime_type(self):
+    def mime_type(self) -> str:
         return self._mime_type
 
     @property
-    def data(self):
+    def data(self) -> Union[str, bytes]:
         """The raw data of the URL"""
         return self._data
 
     @property
-    def encoded_data(self):
+    def encoded_data(self) -> str:
         """The encoded data of the URL"""
         if self._is_base64_encoded:
             return base64.b64encode(self._data).decode('utf-8')
         return self._data
 
     @property
-    def parameters(self):
+    def parameters(self) -> Dict[str, str]:
         """Attribute / Value parameters."""
         if not hasattr(self, '_parameters'):
             self._parameters = {}
