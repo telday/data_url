@@ -173,7 +173,7 @@ class DataURL:
         """The encoded data of the URL"""
         if self._is_base64_encoded:
             return base64.b64encode(self._data).decode('utf-8')
-        return self._data
+        return quote(self._data)
 
     @property
     def parameters(self) -> Dict[str, str]:

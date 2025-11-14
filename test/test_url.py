@@ -160,6 +160,17 @@ class TestFromData(unittest.TestCase):
         self.assertEqual(type(self.url.data), str)
         self.run_assertions()
 
+    def test_string_with_spaces(self):
+        self.mime_type = "image/some+other"
+        self.base64_encoded = False
+        self.data = "A brief note"
+        self.raw_data = self.data
+        self.expected_url = f"data:{self.mime_type},A%20brief%20note"
+        self.url = DataURL.from_data(self.mime_type, self.base64_encoded, self.data)
+
+        self.assertEqual(type(self.url.data), str)
+        self.run_assertions()
+
     def run_assertions(self):
         self.assertEqual(self.url.mime_type, self.mime_type)
         self.assertEqual(self.url.data, self.raw_data)
@@ -174,6 +185,17 @@ class TestFromByteData(unittest.TestCase):
         self.mime_type = "text/plain"
         self.base64_encoded = True
         self.raw_data = bytes(str(uuid.uuid4()), "UTF-8")
+        self.data = base64.b64encode(self.raw_data).decode("UTF-8")
+        self.expected_url = f"data:{self.mime_type};base64,{self.data}"
+
+        self.url = DataURL.from_byte_data(self.mime_type, self.raw_data)
+        self.assertEqual(type(self.url.data), bytes)
+        self.run_assertions()
+
+    def test_string_with_spaces(self):
+        self.mime_type = "text/plain"
+        self.base64_encoded = True
+        self.raw_data = b"A brief note"
         self.data = base64.b64encode(self.raw_data).decode("UTF-8")
         self.expected_url = f"data:{self.mime_type};base64,{self.data}"
 
