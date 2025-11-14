@@ -132,7 +132,7 @@ class DataURL:
             if self._is_base64_encoded:
                 self._data = base64.b64decode(raw_data)
             else:
-                self._data = raw_data
+                self._data = unquote(raw_data)
             return True
         return False
 

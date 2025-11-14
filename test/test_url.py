@@ -79,6 +79,12 @@ class TestUrlCreation(unittest.TestCase):
         url.parameters["name"] = "two words"
         self.assertEqual(str(url), self.example_url)
 
+    def test_url_with_url_escaped_encoding(self):
+        url = DataURL.from_url("data:,A%20brief%20note")
+        self.assertEqual("", url.mime_type)
+        self.assertEqual(False, url.is_base64_encoded)
+        self.assertEqual("A brief note", url.data)
+
 
 class TestFromData(unittest.TestCase):
     def test_typing(self):
