@@ -89,13 +89,17 @@ class DataURL:
         return data_url
 
     @classmethod
-    def from_byte_data(cls, mime_type: str, data: bytes) -> 'DataURL':
-        """Create a new data URL from a mime type and byte data.
+    def from_byte_data(cls, mime_type: str, data: Union[str, bytes]) -> 'DataURL':
+        """Create a new data URL from a mime type and raw data.
 
-        This method works similarly to from_data, however because the data is bytes type it will
-        automatically turn on base64 encoding. It also assumes that the data is not already
-        base64 encoded. If you have base64 encoded bytes convert them to a string then
-        use the `from_data` method.
+        If the data is a bytes type, then a data URL is constructed from the data's
+        base64 encoded representation. This assumes the data is not already base64
+        encoded. If you have base64 encoded bytes, convert them to a string and use the
+        `from_data` method instead.
+
+        If the data is a string type, then a data URL is constructed from the data's URL
+        encoded representation. This assumes the data is not already URL encoded. If you
+        have URL encoded data, use `from_data` instead.
 
         Args:
             mime_type (str)
@@ -103,15 +107,20 @@ class DataURL:
         Returns:
             DataURL: A new DataURL object.
         """
-        if type(data) != bytes:
-            raise TypeError('Data must be a bytes type')
-
         data_url = cls()
         data_url._mime_type = mime_type
-        data_url._is_base64_encoded = True
-        data_url._data = data
+
+        if type(data) == str:
+            data_url._is_base64_encoded = False
+            data_url._data = quote(data)
+        elif type(data) == bytes:
+            data_url._is_base64_encoded = True
+            data_url._data = data
+        else:
+            raise TypeError('Data must be a string or bytes type')
 
         return data_url
+
 
     def __parse_url(self) -> bool:
         """Parses a data URL to get each individual element and sets the
@@ -132,7 +141,7 @@ class DataURL:
             if self._is_base64_encoded:
                 self._data = base64.b64decode(raw_data)
             else:
-                self._data = unquote(raw_data)
+                self._data = raw_data
             return True
         return False
 
@@ -173,7 +182,14 @@ class DataURL:
         """The encoded data of the URL"""
         if self._is_base64_encoded:
             return base64.b64encode(self._data).decode('utf-8')
-        return quote(self._data)
+        return self._data
+
+    @property
+    def decoded_data(self) -> Union[str, bytes]:
+        """The decoded data from the URL"""
+        if self._is_base64_encoded:
+            return self._data
+        return unquote(self._data)
 
     @property
     def parameters(self) -> Dict[str, str]:
