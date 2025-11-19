@@ -121,7 +121,6 @@ class DataURL:
 
         return data_url
 
-
     def __parse_url(self) -> bool:
         """Parses a data URL to get each individual element and sets the
         respecting class attributes."""
