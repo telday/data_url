@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `DataURL.from_data` now raises a `ValueError` when `base64_encoded` is `False` and
+  `data` contains characters that are not valid in a Data URL, instead of silently
+  constructing an invalid URL ([#17](https://github.com/telday/data_url/issues/17)).
+
 ## [1.3.1] - 2025-08-10
 
 ### Added
