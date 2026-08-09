@@ -87,6 +87,21 @@ class TestFromData(unittest.TestCase):
 
         self.assertTrue('Data must be a string type' in str(context.exception))
 
+    def test_invalid_characters_raises(self):
+        with self.assertRaises(ValueError) as context:
+            DataURL.from_data("text/plain", False, "Hello World!")
+
+        self.assertTrue('not valid in a Data URL' in str(context.exception))
+
+    def test_percent_encoded_characters_allowed(self):
+        mime_type = "text/plain"
+        base64_encoded = False
+        data = "Hello%20World%21"
+        url = DataURL.from_data(mime_type, base64_encoded, data)
+
+        self.assertEqual(data, url.data)
+        self.assertEqual(f"data:{mime_type},{data}", url.url)
+
     def test_string_no_encoding(self):
         self.mime_type = "text/plain"
         self.base64_encoded = False

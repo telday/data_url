@@ -3,16 +3,31 @@ import base64
 from urllib.parse import unquote, quote
 from typing import Union, Dict, Optional
 
+# The "data" URL scheme is defined by RFC 2397 (https://www.rfc-editor.org/rfc/rfc2397):
+#
+#     dataurl := "data:" [ mediatype ] [ ";base64" ] "," data
+#     data    := *urlchar
+#
+# RFC 2397 imports `urlchar` from RFC 2396, which has since been obsoleted by
+# RFC 3986. Section 2.3 of RFC 3986 defines the unreserved characters as
+# ALPHA / DIGIT / "-" / "." / "_" / "~"; every other character must be
+# percent-encoded (section 2.1), which is why "%" is accepted as well. The
+# remaining "+", "/" and "=" make up the rest of the base64 alphabet defined in
+# section 4 of RFC 4648, used when the ";base64" flag is present.
 DATA_URL_RE = re.compile(
     r"""
     data:                                         # literal data:
     (?P<MIME>[a-z][a-z0-9\-]+/[a-z][\w\-\.\+]+)?  # optional media type
     (?P<parameters>(?:;[\w\-\.+]+=[\w\-\.+%]+)*)  # optional attribute=values, value can be url encoded
     (?P<encoded>;base64)?,                        # optional base64 flag
-    (?P<data>[\w\d.~%\=\/\+-]+)                   # the data
+    (?P<data>[\w\d.~%\=\/\+-]+)                   # the data, see the character set described above
     """,
     re.MULTILINE | re.VERBOSE
 )
+
+# The same character set as the `data` group of DATA_URL_RE, anchored so that a
+# whole string can be validated rather than a match extracted from it.
+VALID_DATA_RE = re.compile(r"^[\w\d.~%\=\/\+-]*$")
 
 
 def construct_data_url(mime_type: str, base64_encoded: bool, data: Union[str, bytes]) -> str:
@@ -66,7 +81,8 @@ class DataURL:
 
         If the data is a string type and the base64_encoded flag is set to True then
         this function assumes the data is already base64 encoded and decodes it. Otherwise
-        the data is passed through as is.
+        the data is passed through as is, and must already be percent-encoded per RFC 3986
+        since it is not transformed further.
 
         Args:
             mime_type (str)
@@ -75,6 +91,9 @@ class DataURL:
             data (str): The actual url data.
         Returns:
             DataURL: A new DataURL object.
+        Raises:
+            ValueError: If base64_encoded is False and data contains characters that are not
+                valid in a Data URL (i.e. the data is not properly percent-encoded).
         """
         data_url = cls()
         data_url._mime_type = mime_type
@@ -83,6 +102,11 @@ class DataURL:
         if type(data) == str and base64_encoded:
             data_url._data = base64.b64decode(data)
         elif type(data) == str:
+            if not VALID_DATA_RE.match(data):
+                raise ValueError(
+                    'Data contains characters that are not valid in a Data URL. '
+                    'Data must be percent-encoded when base64_encoded is False.'
+                )
             data_url._data = data
         else:
             raise TypeError('Data must be a string type')
